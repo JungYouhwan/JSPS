@@ -1,8 +1,5 @@
-package com.yedam;
+package com.yedam.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,35 +7,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmpDAO {
-	// Connection 객체.
-	Connection getConnect() {
-		String url = "jdbc:oracle:thin:@localhost:1521:xe"; // 오라클 DB의 접속정보.
-		String user = "hr";
-		String password = "hr";
-		Connection conn = null;
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection(url, user, password);
-			// 매개값으로 사용자의 url, 유저정보, 유저 비밀번호
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return conn;
-		
-	} // end of getConnect().
+import com.yedam.vo.Employee;
+
+
+public class EmpDAO extends DAO{
+//	// Connection 객체. DAO로 이동시키고 DAO를 상속시킴.
 	
 	// 상세조회.
 	public Employee selectEmp(int empNo) {
 		
 		String query = "select * from tbl_employees " //
 				+ "where emp_no = ?";
-		PreparedStatement stmt;
 		try {
-			stmt = getConnect().prepareStatement(query);
-			stmt.setInt(1, empNo);
+			psmt = getConnect().prepareStatement(query);
+			psmt.setInt(1, empNo);
 			
-			ResultSet rs = stmt.executeQuery(); // 조회.
+			rs = psmt.executeQuery(); // 조회.
 			// next = 값이 들어온다면
 			if(rs.next()) { // 조회결과가 한건 있으면...
 				Employee emp = new Employee();
@@ -60,13 +44,14 @@ public class EmpDAO {
 	// 등록
 	public boolean registerEmp(Employee emp) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String query = "insert into tbl_employees (emp_no, emp_name, tel_no) ";
+		String query = "insert into tbl_employees (emp_no, emp_name, tel_no, hire_date, salary) "
 		// 너무길어서 +=로 뒤에 이어붙임.
-		query += "values (" + emp.getEmpNo() // 
+		+ "values (" + emp.getEmpNo() // 
 		+ ", '"+ emp.getEmpName() //
-		+ "', '" + emp.getTelNo()+"')" //
-		+ ", " + sdf.format(emp.getHireDate()) // 
+		+ "', '" + emp.getTelNo() //
+		+ "', '" + sdf.format(emp.getHireDate()) // 
 		+ ", " + emp.getSalary() + ")";
+		System.out.println(query);
 		try {
 			Statement stmt = getConnect().createStatement();
 			int r = stmt.executeUpdate(query);
@@ -96,9 +81,9 @@ public class EmpDAO {
 				Employee empl = new Employee();
 				empl.setEmpNo(rs.getInt("emp_no"));
 				empl.setEmpName(rs.getString("emp_name"));
+				empl.setTelNo(rs.getString("tel_no"));
 				empl.setHireDate(rs.getDate("hire_date"));
 				empl.setSalary(rs.getInt("salary"));
-				empl.setTelNo(rs.getString("tel_no"));
 				
 				empList.add(empl);
 			}

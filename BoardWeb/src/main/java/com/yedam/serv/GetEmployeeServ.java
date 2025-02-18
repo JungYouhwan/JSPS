@@ -1,4 +1,4 @@
-package com.yedam;
+package com.yedam.serv;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.yedam.dao.EmpDAO;
+import com.yedam.vo.Employee;
 
 // 창을 띄울 주소
 @WebServlet("/empInfo")
@@ -26,6 +29,7 @@ public class GetEmployeeServ extends HttpServlet{
 		str += "<tr><th>사번</th><td>" + result.getEmpNo() + "</td></tr>";
 		str += "<tr><th>전화</th><td>" + result.getTelNo() + "</td></tr>";
 		str += "</table>";
+		str += "<a href='sample'>목록이동</a>";
 		// PrintWriter의 writer = 출력스트림.
 		PrintWriter out = resp.getWriter();
 		out.print(str);

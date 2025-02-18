@@ -1,4 +1,4 @@
-package com.yedam;
+package com.yedam.vo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,13 +11,14 @@ import java.util.Date;
  * 입사일자(2020-02-04)
  * 급여(300, 350)
  * 
+ * DB에서는 _를 java에서는 _대신해서 대문자를 사용
  */
-public class Employee {
-	private int empNo;
-	private String empName;
-	private String telNo;
-	private Date hireDate; // 등록시 시스템시간
-	private int salary; // 초기값 250
+public class Employee {// tbl_employees
+	private int empNo; // emp_no
+	private String empName; // emp_name
+	private String telNo; // emp_telNo
+	private Date hireDate; // hireDate
+	private int salary; // salary
 	
 	// 생성자.
 	public Employee() {

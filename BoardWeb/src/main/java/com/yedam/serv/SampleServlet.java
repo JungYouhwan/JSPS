@@ -1,4 +1,4 @@
-package com.yedam;
+package com.yedam.serv;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,6 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.yedam.dao.EmpDAO;
+import com.yedam.vo.Employee;
 
 /*
  * 서블릿 = (http 포로토콜을 활용해서 클라이언트 쪽에 웹브라우저를 출력해줌)
@@ -39,8 +42,9 @@ public class SampleServlet extends HttpServlet{
 		List<Employee> list = edao.search(new Employee());
 		
 		for(Employee emp : list) {
-			out.print("<p>사번: <a href='empInfo?eno=" + emp.getEmpNo() +"'>" + emp.getEmpNo() + "</a>" + " 이름: " + emp.getEmpName() + " 번호: " + emp.getTelNo() + "</p>");
+			out.print("<p>사번: <a href='empInfo?eno="+emp.getEmpNo()+"'>" + emp.getEmpNo() + "</a>, 이름: " + emp.getEmpName() + "</p>");
 		}
+		
 	}
 	
 	//destroy 자동완성
