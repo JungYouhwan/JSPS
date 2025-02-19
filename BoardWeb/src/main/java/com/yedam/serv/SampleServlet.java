@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.dao.EmpDAO;
 import com.yedam.vo.Employee;
-
 /*
  * 서블릿 = (http 포로토콜을 활용해서 클라이언트 쪽에 웹브라우저를 출력해줌)
  * 서블릿 생성
@@ -37,16 +36,12 @@ public class SampleServlet extends HttpServlet{
 		System.out.println("service 호출. 호출마다 실행.");
 		resp.setContentType("text/html;charset=utf-8");
 		PrintWriter out = resp.getWriter(); // 출력 스트림을 생성해서 클라이언트쪽에 출력. PrintWriter(2바이트씩)
-		
 		EmpDAO edao = new EmpDAO();
 		List<Employee> list = edao.search(new Employee());
-		
 		for(Employee emp : list) {
 			out.print("<p>사번: <a href='empInfo?eno="+emp.getEmpNo()+"'>" + emp.getEmpNo() + "</a>, 이름: " + emp.getEmpName() + "</p>");
 		}
-		
 	}
-	
 	//destroy 자동완성
 	@Override
 	public void destroy() {

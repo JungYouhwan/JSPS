@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+	<!-- addStudent.html -->
+	<h3>학생등록</h3>
+	<!-- post 방식은 body에 전달되고 데이터전달하는데 제한이없음 한글처리를 해줘야함-->
+	<!-- get방식은 head를 (주소창에 보여짐)통해서 전달됨 데이터를 보내는데 제한이 있음. -->
+	<form action="addStd" method="post">
+		사번:<input type="text" name="std_no"><br>
+		이름:<input type="text" name="std_name"><br>
+		전화번호:<input type="tel" name="tel_no"><br>
+		주소:<input type="text" name="std_addr"><br>
+		<input type="submit" value="submit">
+		<input type="reset">
+	</form>
+</body>
+</html>

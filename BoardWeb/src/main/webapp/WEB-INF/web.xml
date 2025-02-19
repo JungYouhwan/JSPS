@@ -16,6 +16,6 @@
   
   <welcome-file-list>
   <!-- 웹페이지 최초 실행설정하는곳. -->
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 </web-app>

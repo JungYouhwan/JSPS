@@ -50,7 +50,7 @@ public class EmpDAO extends DAO{
 		+ ", '"+ emp.getEmpName() //
 		+ "', '" + emp.getTelNo() //
 		+ "', '" + sdf.format(emp.getHireDate()) // 
-		+ ", " + emp.getSalary() + ")";
+		+ "', " + emp.getSalary() + ")";
 		System.out.println(query);
 		try {
 			Statement stmt = getConnect().createStatement();

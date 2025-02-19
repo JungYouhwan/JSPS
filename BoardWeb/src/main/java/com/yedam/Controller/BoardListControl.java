@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.dao.BoardDAO;
-import com.yedam.dao.EmpDAO;
 import com.yedam.vo.BoardVO;
-import com.yedam.vo.Employee;
 
 public class BoardListControl implements Control {
 
@@ -25,7 +23,7 @@ public class BoardListControl implements Control {
 		
 		// 요청재지정(url:boardList.do (boardList.jsp))
 		// forward 페이지 요청이 들어오면 다른페이지로 요청
-		req.getRequestDispatcher("boardList.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/boardList.jsp").forward(req, resp);
 	}
 
 }

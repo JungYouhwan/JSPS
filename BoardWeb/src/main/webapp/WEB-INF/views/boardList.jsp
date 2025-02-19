@@ -2,13 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+	<jsp:include page="includes/header.jsp"></jsp:include>
 	<!-- html주석 -->
 	<h3>반복문</h3>
 	<%
@@ -22,14 +16,19 @@
 		<%=result%>
 	</p>
 	<h3>게시글 목록</h3>
-	<table border="2">
+	<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>글번호</th><th>제목</th><th>작성자</th><th>작성일시</th><th>조회수</th>
+		</tr>
+	</thead>
 		<tbody>
 			<%
 			for (BoardVO board : list) {
 			%>
 			<tr>
 				<td><%=board.getBoardNo() %></td>
-				<td><%=board.getTitle() %></td>
+				<td><a href="board.do?bno=<%=board.getBoardNo() %>"><%=board.getTitle() %></a></td>
 				<td><%=board.getWriter() %></td>
 				<td><%=board.getWriterDate() %></td>
 				<td><%=board.getViewCnt() %></td>
@@ -39,5 +38,4 @@
 			%>
 		</tbody>
 	</table>
-</body>
-</html>
+	<jsp:include page="includes/footer.jsp"></jsp:include>
