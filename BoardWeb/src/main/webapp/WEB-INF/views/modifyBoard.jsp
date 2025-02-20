@@ -5,6 +5,7 @@
 <h3>수정 화면(modifyBoard.jsp)</h3>
 <%
 BoardVO board = (BoardVO) request.getAttribute("board");
+String msg = (String) request.getAttribute("msg");
 %>
 <form action="modifyBoard.do">
 <input type="hidden" name="bno" value="<%=board.getBoardNo()%>">
@@ -18,12 +19,12 @@ BoardVO board = (BoardVO) request.getAttribute("board");
 		<tr>
 			<th>제목</th>
 			<td colspan="3">
-			<input type="text" class="form-control" value="<%=board.getTitle() %>">
+			<input type="text" name="title" class="form-control" value="<%=board.getTitle() %>">
 		</tr>
 		<tr>
 			<th>내용</th>
 			<td colspan="3">
-			<textarea cols="45" rows="3" class="form-control"><%=board.getContent() %></textarea>
+			<textarea cols="45" name="content" rows="3" class="form-control"><%=board.getContent() %></textarea>
 			</td>
 		</tr>
 		<tr>
@@ -34,8 +35,8 @@ BoardVO board = (BoardVO) request.getAttribute("board");
 		</tr>
 		<tr>
 			<td colspan="3" align="center">
-				<button class="btn btn-warning" type="submit">수정</button>
-				<button class="btn btn-danger" type="button">삭제</button>
+				<input class="btn btn-warning" type="submit" value="변경">
+				<input class="btn btn-danger" type="reset" value="취소">
 			</td>
 		</tr>
 	</table>

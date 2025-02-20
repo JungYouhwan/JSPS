@@ -20,10 +20,15 @@
             <div class="border-end bg-white" id="sidebar-wrapper">
                 <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardList.do">게시글 목록</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardList.do?page=1">게시글 목록</a>
+                    <% String logId = (String) session.getAttribute("loginId");
+						if(logId == null) { // null 이면 true
+					%>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="loginForm.do">로그인</a>
+                    <%} else { %>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="addForm.do">글 등록(화면)</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="board.do">상세화면</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="logout.do">로그아웃 (<%=logId %>)</a>
+                    <%} %>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
                 </div>
