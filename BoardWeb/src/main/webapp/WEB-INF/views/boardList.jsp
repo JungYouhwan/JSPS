@@ -4,20 +4,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="includes/header.jsp"></jsp:include>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- html주석 -->
-<h3>반복문</h3>
-<%
-String msg = "Hello";
-String result = (String) request.getAttribute("msg");
-List<BoardVO> list = (List<BoardVO>) request.getAttribute("list");
-// Control에서 paging의 값을 얻어오기.
-PageVO paging = (PageVO) request.getAttribute("paging");
-%>
-<p>
-	page의 값은
-	<%=paging%>
-</p>
 <h3>게시글 목록</h3>
+<form action="boardList.do">
+<div class="center">
+ <div class="row">
+	<div class="col-sm-4">
+		<select class="form-control" name="searchCondition">
+			<option value="">선택하세요</option>
+			<option value="T" ${searchCondition == "T" ? "selected" : ""}>제목</option>
+			<option value="W" ${searchCondition == "W" ? "selected" : ""}>작성자</option>
+			<option value="TW" ${searchCondition == "TW" ? "selected" : ""}>제목&작성자</option>
+		</select>
+	</div>
+	<div class="col-sm-5">
+		<input type="text" class="form-control" name="keyword" value="${keyword}">
+	</div>
+	<div class="col-sm-2">
+		<input type="submit" value="조회" class="btn btn-primary">
+	</div>
+ </div>
+</div>
+</form>
+<br>
 <table class="table table-striped">
 	<thead>
 		<tr class="table-dark">
@@ -29,43 +39,52 @@ PageVO paging = (PageVO) request.getAttribute("paging");
 		</tr>
 	</thead>
 	<tbody>
-		<%
-		for (BoardVO board : list) {
-		%>
-		<tr>
-			<td><%=board.getBoardNo()%></td>
-			<td><a href="board.do?bno=<%=board.getBoardNo()%>"><%=board.getTitle()%></a></td>
-			<td><%=board.getWriter()%></td>
-			<td><%=board.getWriterDate()%></td>
-			<td><%=board.getViewCnt()%></td>
-		</tr>
-		<%
-		} // for 종료.
-		%>
+		<c:forEach var="board" items="${list}">
+			<tr>
+				<td><c:out value="${board.boardNo }" /></td>
+				<td><a href="board.do?bno=${board.boardNo }"><c:out
+							value="${board.title }" /></a></td>
+				<td><c:out value="${board.writer }" /></td>
+				<td><c:out value="${board.writeDate }" /></td>
+				<td><c:out value="${board.viewCnt }" /></td>
+			</tr>
+		</c:forEach>
 	</tbody>
 </table>
 <!-- paging 시작. -->
 <nav aria-label="...">
 	<ul class="pagination">
-	<!-- 이전페이지 여부 -->
-	<%if (paging.isPrev()) { %>
-	<li class="page-item"><a class="page-link" href="boardList.do?page=<%=paging.getEndPage() - 1 %>">Previous</a>
-		</li>
-		<%} else { %>
-		<li class="page-item disabled"><span class="page-link">Previous</span>
-		</li>
-		<%} %>
-		<li class="page-item"><a class="page-link" href="boardList.do?page=1"><<</a>
-		</li>
-		<%for(int p = paging.getStartPage(); p<= paging.getEndPage(); p++){ %>
-		<%if (p == paging.getCurrentPage()) { %>
-		<li class="page-item active"><span class="page-link"><%=p %></span></li>
-			<%} else { %>
-			<li class="page-item"><a class="page-link"
-			href="boardList.do?page=<%=p %>"><%=p %></a></li>
-			<%}%>
-		<%} %>
-			<li class="page-item"><a class="page-link" href="boardList.do?page=<%=paging.getEndPage() + 1 %>">>></a></li>
+		<!-- 이전페이지 여부 -->
+		<c:choose>
+			<c:when test="${paging.prev }">
+				<li class="page-item"><a class="page-link"
+					href="boardList.do?page=${paging.startPage - 1 }&searchCondition=${searchCondition}$keyword=${keyword}">Previous</a></li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled"><span class="page-link">Previous</span>
+				</li>
+			</c:otherwise>
+		</c:choose>
+
+		<!-- 페이지 start ~ end 반복 -->
+		<!-- 현재 페이지에 색상집어넣기 -->
+		<c:forEach var="p" begin="${paging.startPage }"
+			end="${paging.endPage }">
+			<c:choose>
+				<c:when test="${p == paging.currentPage }">
+					<li class="page-item active"><span class="page-link"><c:out
+								value="${p }" /></span></li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item"><a class="page-link"
+						href="boardList.do?page=${p }&searchCondition=${searchCondition}&keyword=${keyword}"><c:out value="${p }" /></a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+
+		<!-- 이후 페이지 여부 -->
+		<li class="page-item"><a class="page-link"
+			href="boardList.do?page=${paging.endPage + 1 }&searchCondition=${searchCondition}&keyword=${keyword}">next</a></li>
 	</ul>
 </nav>
 <!-- paging 끝. -->

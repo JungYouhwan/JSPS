@@ -56,7 +56,6 @@ public class FrontController extends HttpServlet{
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("front control");
 		//  http://localhost:8080/BoardWeb/addStudent.do = url
 		//  /BoardWeb/addStudent.do => uri
 		String uri = req.getRequestURI(); // "/BoardWeb/addStudent.do"
@@ -64,7 +63,6 @@ public class FrontController extends HttpServlet{
 		// substring= 정해진 문자열에서부터 자름. uri - context = page (.do)나옴 
 		String page = uri.substring(context.length());
 		
-		System.out.println(page);
 		// page에는 /주소.do가 반환됨.
 		// map컬렉션에서 key를 입력하면 val반환.
 		Control control = map.get(page);
