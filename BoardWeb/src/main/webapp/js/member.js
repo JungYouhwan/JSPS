@@ -1,5 +1,6 @@
 /**
  *  member.js
+ * test
  */
 // 삭제함수.
 function deleteRow(id) {
