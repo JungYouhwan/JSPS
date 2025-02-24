@@ -3,7 +3,6 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="includes/header.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- html주석 -->
 <h3>게시글 목록</h3>
@@ -81,11 +80,8 @@
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
-
 		<!-- 이후 페이지 여부 -->
-		<li class="page-item"><a class="page-link"
-			href="boardList.do?page=${paging.endPage + 1 }&searchCondition=${searchCondition}&keyword=${keyword}">next</a></li>
+		<li class="page-item"><a class="page-link" href="boardList.do?page=${paging.endPage + 1 }&searchCondition=${searchCondition}&keyword=${keyword}">next</a></li>
 	</ul>
 </nav>
 <!-- paging 끝. -->
-<jsp:include page="includes/footer.jsp"></jsp:include>

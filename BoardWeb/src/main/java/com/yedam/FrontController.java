@@ -13,22 +13,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.Controller.AddBoardControl;
 import com.yedam.Controller.AddFormControl;
+import com.yedam.Controller.AjaxControl;
 import com.yedam.Controller.BoardControl;
 import com.yedam.Controller.BoardListControl;
 import com.yedam.Controller.Control;
+import com.yedam.Controller.DataControl;
 import com.yedam.Controller.LoginControl;
 import com.yedam.Controller.LogoutControl;
 import com.yedam.Controller.MainControl;
+import com.yedam.Controller.MemberListControl;
 import com.yedam.Controller.ModifyBoardControl;
 import com.yedam.Controller.ModifyControl;
 import com.yedam.Controller.RemoveBoardControl;
+import com.yedam.Controller.RemoveMemberControl;
 
 /*
  * MVC 패턴에서의 Control역활.
  * url요청 -> 서블릿.
  * 
  */
-@WebServlet("*.do")
+//@WebServlet("*.do")
 public class FrontController extends HttpServlet{
 	// Map<String, Control> map; Map<String, 인터페이스명> map
 	Map<String, Control> map;
@@ -51,7 +55,13 @@ public class FrontController extends HttpServlet{
 		
 		map.put("/loginForm.do", new LoginControl()); // 로그인화면
 		map.put("/login.do", new LoginControl()); // 로그인 기능
-		map.put("/logout.do", new LogoutControl()); // 로그아웃 기능		
+		map.put("/logout.do", new LogoutControl()); // 로그아웃 기능	
+		
+		map.put("/memberList.do", new MemberListControl());
+		map.put("/testAjax.do", new AjaxControl()); // ajax 시작
+		map.put("/testData.do", new DataControl());
+		// 회원삭제.
+		map.put("/removeMomber.do", new RemoveMemberControl());
 	}
 	
 	@Override
