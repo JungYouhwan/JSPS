@@ -61,7 +61,7 @@ public class FrontController extends HttpServlet{
 		map.put("/testAjax.do", new AjaxControl()); // ajax 시작
 		map.put("/testData.do", new DataControl());
 		// 회원삭제.
-		map.put("/removeMomber.do", new RemoveMemberControl());
+		map.put("/removeMember.do", new RemoveMemberControl());
 	}
 	
 	@Override

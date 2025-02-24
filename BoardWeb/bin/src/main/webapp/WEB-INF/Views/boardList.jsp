@@ -39,7 +39,7 @@
 				<td><%=board.getBoardNo() %></td>
 				<td><%=board.getTitle() %></td>
 				<td><%=board.getWriter() %></td>
-				<td><%=board.getWriterDate() %></td>
+				<td><%=board.getWriteDate() %></td>
 				<td><%=board.getViewCnt() %></td>
 			</tr>
 			<%
