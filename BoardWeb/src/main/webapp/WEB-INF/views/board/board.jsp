@@ -42,8 +42,39 @@
 		</c:if>
 	</table>
 </form>
+<style>
+.reply .content ul {
+	list-style: none;
+}
+.reply .content span{
+	display: inline-block;
+}
+</style>
+<!--  댓글 관련 -->
+<div class="container reply">
+	<!-- 댓글 등록 -->
+	<div class="header">
+		<input type="text" id="reply" class="col-sm-9">
+		<button id="addReply">댓글등록</button>	
+	</div>
+	<!-- 댓글 목록 -->
+	<div class="content">
+		<ul>
+			<li>
+			<span class="col-sm-2">글번호</span>
+			<span class="col-sm-5">글내용</span>
+			<span class="col-sm-2">작성자</span>
+			<span class="col-sm-2">삭제</span>
+			</li>
+		</ul>
+	</div>
+	<!-- 댓글 페이징 -->
+	<div class="footer"></div>
+</div>
+
 <script>
 	let logid = "${loginId}";
+	const bno = "${board.boardNo}";
 	// 삭제버튼에 클릭이벤트 등록.
 	document
 			.querySelector('button.btn-danger')
@@ -52,13 +83,12 @@
 					function(e) {
 						let writer = document
 								.querySelector('table.table>tbody>tr:nth-of-type(4)>td').innerHTML;
-						let bno = document.querySelector('input[name="bno"]').value;
-						console.log(logid);
-						console.log(writer);
-
+						let bnos = document.querySelector('input[name="bno"]').value;
 						if (writer == logid)
-							location.href = "removeBoard.do?bno=" + bno;
+							location.href = "removeBoard.do?bno=" + bnos;
 						else
 							alert("권한을 확인하세요.");
 					});
 </script>
+<script src="js/replyService.js"></script>
+<script src="js/reply.js"></script>

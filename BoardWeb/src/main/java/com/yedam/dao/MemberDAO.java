@@ -9,7 +9,47 @@ import com.yedam.vo.MemberVO;
 // 로그인과 관련된것들
 public class MemberDAO extends DAO {
 
-	// 조회(삭제)
+	
+	
+	public boolean updateMember(MemberVO member) {
+		String query = "insert into tbl_member(member_id, passwd, member_name)"
+				+"      values( ?, ?, ?)";
+		try {
+			psmt = getConnect().prepareStatement(query);
+			psmt.setString(1, member.getMemberId());
+			psmt.setString(2, member.getPasswd());
+			psmt.setString(3, member.getMemberName());
+			
+			int r = psmt.executeUpdate();
+			if (r > 0) {
+				return true; // 정상 등록
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean deleteMember(String id) {
+		String query = "delete from tbl_member where member_id= ?";
+		try {
+			psmt = getConnect().prepareStatement(query);
+			psmt.setString(1, id);
+			int r = psmt.executeUpdate();
+			if (r > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		return true;
+	}
+	
+	
+	
+	// 조회
 	public List<MemberVO> members() {
 		String sql = "select member_id," //
 				+ "         passwd," //
