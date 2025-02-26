@@ -19,10 +19,12 @@ public class ReplyListControl implements Control {
 		resp.setContentType("text/json;charset=utf-8");
 		// 원본글번호.
 		String bno = req.getParameter("bno");
+		String page = req.getParameter("page");
 		
 		// DAO활용.
 		ReplyDAO rdao = new ReplyDAO();
-		List<ReplyVO> list = rdao.replyList(Integer.parseInt(bno));
+		
+		List<ReplyVO> list = rdao.replyList(Integer.parseInt(bno), Integer.parseInt(page));
 		
 		// gson활용.
 		// GsonBuilder의 create객체가 리스트의 값을 문자열로 변경시켜줌.
@@ -30,7 +32,7 @@ public class ReplyListControl implements Control {
 		
 		String json = gson.toJson(list); 
 		
-		System.out.println(json); // 콘솔
+		//System.out.println(json); // 콘솔
 		resp.getWriter().print(json); // 웹브라우저
 	}
 

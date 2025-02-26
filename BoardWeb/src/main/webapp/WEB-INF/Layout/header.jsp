@@ -22,7 +22,7 @@
 			 <a class="list-group-item list-group-item-action list-group-item-light p-3"
 			href="addForm.do">게시글 등록(화면)</a>
 			 <a	class="list-group-item list-group-item-action list-group-item-light p-3"
-			href="#!">Profile</a> <a
+			href="chart.do">차트</a> <a
 			class="list-group-item list-group-item-action list-group-item-light p-3"
 			href="#!">Status</a>
 	</div>

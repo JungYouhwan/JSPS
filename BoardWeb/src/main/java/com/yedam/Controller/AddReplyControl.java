@@ -49,7 +49,7 @@ public class AddReplyControl implements Control {
 		// json생성
 		Gson gson = new GsonBuilder().create();
 		String json = gson.toJson(result);
-		System.out.println(json);
+//		System.out.println(json);
 		resp.getWriter().print(json);
 		
 	}

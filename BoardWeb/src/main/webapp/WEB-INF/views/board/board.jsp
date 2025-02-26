@@ -46,7 +46,8 @@
 .reply .content ul {
 	list-style: none;
 }
-.reply .content span{
+
+.reply .content span {
 	display: inline-block;
 }
 </style>
@@ -55,21 +56,23 @@
 	<!-- 댓글 등록 -->
 	<div class="header">
 		<input type="text" id="reply" class="col-sm-9">
-		<button id="addReply">댓글등록</button>	
+		<button id="addReply">댓글등록</button>
 	</div>
 	<!-- 댓글 목록 -->
 	<div class="content">
-		<ul>
-			<li>
-			<span class="col-sm-2">글번호</span>
-			<span class="col-sm-5">글내용</span>
-			<span class="col-sm-2">작성자</span>
-			<span class="col-sm-2">삭제</span>
-			</li>
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-light"><span
+				class="col-sm-2">글번호</span> <span class="col-sm-5">글내용</span> <span
+				class="col-sm-2">작성자</span> <span class="col-sm-2">삭제</span></li>
 		</ul>
 	</div>
 	<!-- 댓글 페이징 -->
-	<div class="footer"></div>
+	<div class="footer">
+		<nav aria-label="Page navigation example">
+			<ul class="pagination pagination-sm justify-content-center">
+			</ul>
+		</nav>
+	</div>
 </div>
 
 <script>
