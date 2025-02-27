@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 순서대로 입력해야함 mybatis 홈페이지 참고 setting -> typeAliases -> environments -->
+<!-- 셋팅값은 데이터 베이스에서 int타입과 날짜타입을 올바르게 보여주기위해서 true로 바꿔줘야함 -->
+<!-- typeAliases  Aliases 입력을위해서.-->
+	<settings>
+	  <setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	<typeAliases>
+	 <typeAlias alias="board" type="com.yedam.vo.BoardVO"/>
+	 <typeAlias alias="reply" type="com.yedam.vo.ReplyVO"/>
+	 <typeAlias alias="member" type="com.yedam.vo.MemberVO"/>
+	 <typeAlias alias="SearchVO" type="com.yedam.common.SearchVO"/>
+	</typeAliases>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+        <property name="username" value="hr"/>
+        <property name="password" value="hr"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="com/yedam/mapper/BoardMapper.xml"/>
+    <mapper resource="com/yedam/mapper/ReplyMapper.xml"/>
+  </mappers>
+</configuration>

@@ -7,10 +7,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+
+import com.yedam.common.DataSource;
+import com.yedam.common.PageVO;
+import com.yedam.common.SearchVO;
 import com.yedam.dao.BoardDAO;
+import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
-import com.yedam.vo.PageVO;
-import com.yedam.vo.SearchVO;
 
 public class BoardListControl implements Control {
 
@@ -22,7 +26,8 @@ public class BoardListControl implements Control {
 		// page값이 null값이 들어가는경우는 에러가 생김 그래서
 		// 초기값으로 1이라는 값을 줌.
 		page = page == null ? "1" : page;
-		
+		SqlSession sqlsession = DataSource.getInstance().openSession();
+		BoardMapper mapper = sqlsession.getMapper(BoardMapper.class);
 		// 검색했을때 값 넘겨주기.
 		// 전송되는 파라메타값 변수에 담아주기
 		String sc = req.getParameter("searchCondition");
@@ -34,15 +39,18 @@ public class BoardListControl implements Control {
 		String name = "홍길동";
 		req.setAttribute("msg", name);
 		
-		BoardDAO edao = new BoardDAO();
+//		BoardDAO edao = new BoardDAO();
 		// 페이징
-		int totalCnt = edao.getTotalCount(search); // 실제 건수.
+		int totalCnt = mapper.getTotalCount(search); // 실제 건수.
 		PageVO paging = new PageVO(Integer.parseInt(page), totalCnt);
 		req.setAttribute("paging", paging);
 		
 		// 페이징 처리로 인해서 매개값으로 page 값을 넘겨줘야함.
 		// 검색기능 추가로 page를 searchVO에 추가해서 같이 넘김.
-		List<BoardVO> list = edao.selectBoard(search);
+//		List<BoardVO> list = edao.selectBoard(search);
+		
+		List<BoardVO> list = mapper.selectBoard(search);
+		
 		req.setAttribute("list", list);
 		// searchCondition, keyword 전달.
 		req.setAttribute("searchCondition", sc);

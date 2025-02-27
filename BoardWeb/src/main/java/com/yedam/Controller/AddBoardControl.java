@@ -6,9 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.yedam.dao.BoardDAO;
+import com.yedam.common.DataSource;
+import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
 public class AddBoardControl implements Control {
@@ -48,8 +51,11 @@ public class AddBoardControl implements Control {
 		bvo.setWriter(writer);
 		bvo.setImg(img);
 		
-		BoardDAO bdao = new BoardDAO();
-		if(bdao.insertBoard(bvo)) {
+		SqlSession sqlsession = DataSource.getInstance().openSession(true);
+		BoardMapper mapper = sqlsession.getMapper(BoardMapper.class);
+		
+//		BoardDAO bdao = new BoardDAO();
+		if(mapper.insertBoard(bvo) > 0) {
 			// forward vs. redirect
 			resp.sendRedirect("boardList.do");
 			System.out.println("성공.");

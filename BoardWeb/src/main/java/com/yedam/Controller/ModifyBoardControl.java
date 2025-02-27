@@ -6,7 +6,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.yedam.dao.BoardDAO;
+import org.apache.ibatis.session.SqlSession;
+
+import com.yedam.common.DataSource;
+import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
 public class ModifyBoardControl implements Control {
@@ -20,13 +23,16 @@ public class ModifyBoardControl implements Control {
 		String content = req.getParameter("content");
 		// 변수에 저장된 값을 boardVO를 통해서 board 라는 변수에 저장.
 		BoardVO board = new BoardVO();
+		SqlSession sqlsession = DataSource.getInstance().openSession(true);
+		BoardMapper mapper = sqlsession.getMapper(BoardMapper.class);
+		
 		board.setBoardNo(Integer.parseInt(bno));
 		board.setTitle(title);
 		board.setContent(content);
 		
-		BoardDAO bdao = new BoardDAO();
+//		BoardDAO bdao = new BoardDAO();
 		// 전달받은 파라메타값을 저장한 board를 전송.
-		if(bdao.updateBoard(board)) {
+		if(mapper.updateBoard(board) > 0) {
 			resp.sendRedirect("boardList.do");
 		} else {
 			System.out.println("처리 실패");
