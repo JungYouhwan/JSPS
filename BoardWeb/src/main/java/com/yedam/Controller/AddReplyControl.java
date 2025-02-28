@@ -8,9 +8,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.yedam.dao.ReplyDAO;
+import com.yedam.common.DataSource;
+import com.yedam.mapper.ReplyMapper;
 import com.yedam.vo.ReplyVO;
 
 public class AddReplyControl implements Control {
@@ -24,15 +27,21 @@ public class AddReplyControl implements Control {
 		String replyer = req.getParameter("replyer");
 		String bno = req.getParameter("bno");
 		
+		
 		// 매개값.
 		ReplyVO rvo = new ReplyVO();
 		rvo.setReply(reply);
 		rvo.setReplyer(replyer);
 		rvo.setBoardNo(Integer.parseInt(bno));
 		
+		// sqlsession 가져와서
+		SqlSession sqlsession = DataSource.getInstance().openSession(true);
+		ReplyMapper mapper = sqlsession.getMapper(ReplyMapper.class);
+		boolean run = mapper.insertReply(rvo) == 1;
+		
 		// DB 반영.
-		ReplyDAO rdao = new ReplyDAO();
-		boolean run = rdao.insertReply(rvo);
+//		ReplyDAO rdao = new ReplyDAO();
+//		boolean run = rdao.insertReply(rvo);
 		
 		// 결과값.
 		Map<String, Object> result = new HashMap<>();

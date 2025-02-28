@@ -1,4 +1,4 @@
-<%@page import="com.yedam.vo.PageVO"%>
+<%@page import="com.yedam.common.PageVO"%>
 <%@page import="com.yedam.vo.BoardVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

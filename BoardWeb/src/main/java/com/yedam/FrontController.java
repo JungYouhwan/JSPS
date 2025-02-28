@@ -22,6 +22,7 @@ import com.yedam.Controller.ChartCount;
 import com.yedam.Controller.ChartData;
 import com.yedam.Controller.Control;
 import com.yedam.Controller.DataControl;
+import com.yedam.Controller.DataTableControl;
 import com.yedam.Controller.LoginControl;
 import com.yedam.Controller.LogoutControl;
 import com.yedam.Controller.MainControl;
@@ -79,6 +80,8 @@ public class FrontController extends HttpServlet{
 		// 차트.
 		map.put("/chart.do", new ChartCount());
 		map.put("/chartData.do", new ChartData());
+		// API
+		map.put("/datatable.do", new DataTableControl());
 		}
 	
 	@Override

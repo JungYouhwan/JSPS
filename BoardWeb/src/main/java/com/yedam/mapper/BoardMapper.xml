@@ -5,7 +5,7 @@
   <!-- namespace=해당 맵퍼태그의 이름. -->
   <!-- resultType= 반환되는 타입.(VO) -->
 <mapper namespace="com.yedam.mapper.BoardMapper">
-  <select id="getTotalCount" parameterType="SearchVO" resultType="int">
+  <select id="getTotalCount" parameterType="search" resultType="int">
   	select count(1) from tbl_board
   	<choose>
   		<when test="searchCondition == 'T'.toString()">
@@ -29,7 +29,7 @@
   from tbl_board
   where board_no = #{boardNo}
   </select>
-  <select id="selectBoard" resultType="board" parameterType="com.yedam.common.SearchVO">
+  <select id="selectBoard" resultType="board" parameterType="search">
   select *
   from(
 	   select rownum rn, tbl_a.* 

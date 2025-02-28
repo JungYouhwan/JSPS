@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.yedam.common.DataSource;
+import com.yedam.common.SearchVO;
 import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
@@ -25,7 +26,7 @@ public class AddBoardControl implements Control {
 		// 톰캣서버의 폴더내에 경로 지정.
 		// get RealPath = getServletContext()가 webapp까지의 경로를 애기함.
 		String saveDir = req.getServletContext().getRealPath("images");
-				
+//		SearchVO search = new SearchVO(Integer.parseInt(page), sc, kw);
 		// 2종류의 파일타입(multipart)
 		MultipartRequest mr = new MultipartRequest(
 				req// 1. 요청객체
@@ -39,23 +40,25 @@ public class AddBoardControl implements Control {
 //		String title = req.getParameter("title");
 //		String content = req.getParameter("content");
 //		String writer = req.getParameter("writer");
-		
+		SqlSession sqlsession = DataSource.getInstance().openSession(true);
+		BoardMapper mapper = sqlsession.getMapper(BoardMapper.class);
 		String title = mr.getParameter("title");
 		String content = mr.getParameter("content");
 		String writer = mr.getParameter("writer");
 		String img = mr.getFilesystemName("img");
+		
+		
+		
 		// 매개값으로 활용.
-		BoardVO bvo = new BoardVO();
+	    BoardVO bvo = new BoardVO();
 		bvo.setTitle(title);
 		bvo.setContent(content);
 		bvo.setWriter(writer);
 		bvo.setImg(img);
 		
-		SqlSession sqlsession = DataSource.getInstance().openSession(true);
-		BoardMapper mapper = sqlsession.getMapper(BoardMapper.class);
-		
+	
 //		BoardDAO bdao = new BoardDAO();
-		if(mapper.insertBoard(bvo) > 0) {
+		if(mapper.insertBoard(bvo)>0) {
 			// forward vs. redirect
 			resp.sendRedirect("boardList.do");
 			System.out.println("성공.");

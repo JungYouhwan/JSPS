@@ -4,11 +4,15 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <!-- namespace=해당 맵퍼태그의 이름. -->
   <!-- resultType= 반환되는 타입.(VO) -->
-<mapper namespace="com.yedam.mapper.BoardMapper">
-  <select id="getTotalCount" parameterType="com.yedam.common.SearchVO" resultType="int">
-  
+<mapper namespace="com.yedam.mapper.ReplyMapper">
+  <select id="replyListAll" resultType="reply" parameterType="int">
+  select *
+  from tbl_reply
+  where board_no = #{bno}
   </select>
-  <insert id="insertReply">
+  
+  
+  <insert id="insertReply" parameterType="reply">
   <!-- 셀렉트할때 시퀀스를 통해서 insert를 하기때문에 selectkey로 시퀀스를 먼저 조회해야함. -->
   <selectKey keyProperty="replyNo" resultType="int">
   select reply_seq.nextval from dual
@@ -16,4 +20,5 @@
   insert into tbl_reply(reply_no, reply, replyer, board_no)
   values ( #{replyNo}, #{reply}, #{replyer}, #{boardNo}) 
   </insert>
+  
 </mapper>

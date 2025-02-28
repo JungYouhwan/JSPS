@@ -11,6 +11,9 @@ import com.yedam.vo.ReplyVO;
 public interface ReplyMapper {
 	public List<Map<String, Object>> chartData();
 	public int replyCount(int boardNo);
+
 	public List<ReplyVO> replyList(@Param("boardNo")int boardNo, int page);
+	public List<ReplyVO> replyListAll(int boardNo);
+	public int insertReply(ReplyVO reply);
 	
 }
