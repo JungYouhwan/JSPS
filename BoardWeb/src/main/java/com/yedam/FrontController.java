@@ -34,6 +34,7 @@ import com.yedam.Controller.RemoveMemberControl;
 import com.yedam.Controller.RemoveReplyControl;
 import com.yedam.Controller.ReplyCount;
 import com.yedam.Controller.ReplyListControl;
+import com.yedam.Controller.calanderControl;
 
 /*
  * MVC 패턴에서의 Control역활.
@@ -82,6 +83,8 @@ public class FrontController extends HttpServlet{
 		map.put("/chartData.do", new ChartData());
 		// API
 		map.put("/datatable.do", new DataTableControl());
+		// FullCalander
+		map.put("/calander.do", new calanderControl());
 		}
 	
 	@Override
