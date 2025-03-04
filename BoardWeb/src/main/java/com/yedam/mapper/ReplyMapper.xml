@@ -5,20 +5,54 @@
   <!-- namespace=해당 맵퍼태그의 이름. -->
   <!-- resultType= 반환되는 타입.(VO) -->
 <mapper namespace="com.yedam.mapper.ReplyMapper">
+ <insert id="insertEvent2" parameterType="map">
+    insert into tbl_calendar(title, start_date, end_date)
+    values(#{title}, #{start}, #{end})
+  </insert>
+
+  <insert id="insertEvent">
+    insert into tbl_calendar(title, start_date, end_date)
+    values(#{title}, #{start}, #{end})
+  </insert>
+
+  <select id="fullData" resultType="map">
+    select title as "title"
+          ,start_date as "start"
+          ,end_date as "end"
+    from tbl_calendar
+  </select>
+  <delete id="removeData">
+	delete from tbl_calendar
+	where  title = #{title}
+	and    start_date =#{start}
+	and    end_date =#{end}
+  </delete>
+
   <select id="replyListAll" resultType="reply" parameterType="int">
-  select *
-  from tbl_reply
-  where board_no = #{bno}
+    select *
+    from tbl_reply
+    where board_no = #{boardNo}
   </select>
   
-  
+  <select id="replyList" resultType="reply" parameterType="search">
+    select  tbl_a.*
+	from (select /*+ INDEX_DESC (r pk_reply) */
+				rownum rn, reply_no, reply, replyer, board_no, reply_date
+          from tbl_reply r
+		  where board_no = #{boardNo}) tbl_a
+	where tbl_a.rn > (#{page} - 1) * 5
+	<![CDATA[
+	and   tbl_a.rn <= #{page} * 5  
+	]]>
+  </select>
+
   <insert id="insertReply" parameterType="reply">
-  <!-- 셀렉트할때 시퀀스를 통해서 insert를 하기때문에 selectkey로 시퀀스를 먼저 조회해야함. -->
-  <selectKey keyProperty="replyNo" resultType="int">
-  select reply_seq.nextval from dual
-  </selectKey>
-  insert into tbl_reply(reply_no, reply, replyer, board_no)
-  values ( #{replyNo}, #{reply}, #{replyer}, #{boardNo}) 
+    <selectKey keyProperty="replyNo" resultType="int" order="BEFORE">
+      select reply_seq.nextval from dual
+    </selectKey>
+	insert into tbl_reply(reply_no, reply, replyer, board_no)
+	values(#{replyNo}, #{reply}, #{replyer}, #{boardNo})
   </insert>
   
+
 </mapper>

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +33,12 @@ import com.yedam.Controller.RemoveMemberControl;
 import com.yedam.Controller.RemoveReplyControl;
 import com.yedam.Controller.ReplyCount;
 import com.yedam.Controller.ReplyListControl;
-import com.yedam.Controller.calanderControl;
+import com.yedam.common.AddData;
+import com.yedam.common.ApiControl;
+import com.yedam.common.FullCalendarContro;
+import com.yedam.common.FullData;
+import com.yedam.common.MapControl;
+import com.yedam.common.removeData;
 
 /*
  * MVC 패턴에서의 Control역활.
@@ -84,7 +88,13 @@ public class FrontController extends HttpServlet{
 		// API
 		map.put("/datatable.do", new DataTableControl());
 		// FullCalander
-		map.put("/calander.do", new calanderControl());
+		map.put("/full.do", new FullCalendarContro());
+		map.put("/fullData.do", new FullData()); // 조회.
+		map.put("/addData.do", new AddData()); // 등록.
+		map.put("/remove.do", new removeData()); // 삭제.
+		// 공공데이터
+		map.put("/api.do", new ApiControl()); // 공공데이터 활용.
+		map.put("/map.do", new MapControl()); // 카카오맵으로 보이기
 		}
 	
 	@Override

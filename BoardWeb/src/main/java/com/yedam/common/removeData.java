@@ -1,0 +1,38 @@
+package com.yedam.common;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.yedam.Controller.Control;
+import com.yedam.mapper.ReplyMapper;
+
+public class removeData implements Control {
+
+	@Override
+	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String title = req.getParameter("title");
+		String start = req.getParameter("start");
+		String end = req.getParameter("end");
+		
+		System.out.println(title);
+		System.out.println(start);
+		System.out.println(end);
+		
+		SqlSession sqlSession = DataSource.getInstance().openSession(true);
+		ReplyMapper mapper = sqlSession.getMapper(ReplyMapper.class);
+		int cnt = mapper.removeData(title, start, end);
+		if (cnt == 1) {
+//		    {"retCode": "OK"}
+			resp.getWriter().print("{\"retCode\": \"OK\"}");
+		} else {
+			resp.getWriter().print("{\"retCode\": \"NG\"}");
+		}
+		
+	}
+
+}
